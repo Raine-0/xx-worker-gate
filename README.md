@@ -1,5 +1,4 @@
 # xx-worker-gate
-# Cloudflare Pages 生日站：密语 + 阿里云「号码认证服务」短信验证码 + 脱敏仅访问模式
 
 截图的接口字段（SchemeName / CountryCode / PhoneNumber / SignName / TemplateCode / TemplateParam / CodeLength / ValidTime / Interval / CodeType / ReturnVerifyCode / AutoRetry）
 对应的是阿里云 **号码认证服务（PNVS / Dypnsapi）** 的：
