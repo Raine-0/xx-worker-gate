@@ -91,7 +91,7 @@ export default {
 // ----------------------- 页面：验证入口 -----------------------
 
 function gatePage(env, { clearPublic = false } = {}) {
-  const title = "🔒 只给 xx 的生日入口";
+  const title = "⭐️ Just for xx";
   const subtitle = "如果你知道密语，就解锁并接收短信验证码。否则也可以进入仅访问模式（不含任何个人信息）。";
 
   const html = `<!doctype html>
@@ -101,40 +101,48 @@ function gatePage(env, { clearPublic = false } = {}) {
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>${escapeHtml(title)}</title>
   <style>
-    :root{--bg:#0b0c10;--card:#12141b;--txt:#e9ecf1;--muted:#a7b0c0;--line:rgba(255,255,255,.12);--btn:#ffffff;--btnTxt:#111;}
-    body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,.08), transparent), var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
-    .card{width:min(560px,92vw);background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 60px rgba(0,0,0,.45);padding:22px 18px;}
-    h1{margin:0 0 6px;font-size:20px;color:var(--txt);}
-    p{margin:0 0 14px;line-height:1.7;color:var(--muted);font-size:14px;}
-    label{display:block;color:var(--muted);font-size:13px;margin:10px 0 8px;}
-    input{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:#0f1117;color:var(--txt);font-size:16px;outline:none;}
-    button{margin-top:12px;width:100%;padding:12px 14px;border-radius:14px;border:0;background:var(--btn);color:var(--btnTxt);font-size:16px;cursor:pointer;font-weight:700;}
-    button:disabled{opacity:.6;cursor:not-allowed;}
-    .row{display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap}
+    :root{--bg:#0b0c10;--card:#131622;--txt:#eef1f8;--muted:#9aa3b2;--line:rgba(255,255,255,.12);--accent:#8ec5ff;--accent-2:#b28dff;--btn:#f9f9fb;--btnTxt:#0f1117;}
+    *{box-sizing:border-box;}
+    body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(1200px 600px at 18% 12%, rgba(142,197,255,.16), transparent),radial-gradient(900px 600px at 80% 0%, rgba(178,141,255,.16), transparent),var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--txt);}
+    .card{width:min(560px,92vw);background:linear-gradient(180deg, rgba(255,255,255,.03), transparent),var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.55);padding:26px 22px;position:relative;overflow:hidden;}
+    .card::after{content:"";position:absolute;inset:0;border-radius:20px;border:1px solid rgba(255,255,255,.06);pointer-events:none;}
+    h1{margin:0 0 8px;font-size:22px;letter-spacing:.3px;color:var(--txt);font-family:"Playfair Display","Times New Roman",serif;}
+    p{margin:0 0 16px;line-height:1.7;color:var(--muted);font-size:14px;}
+    label{display:block;color:var(--muted);font-size:13px;margin:12px 0 8px;}
+    input{width:100%;padding:13px 14px;border-radius:14px;border:1px solid transparent;background:#0e1118;color:var(--txt);font-size:16px;outline:none;box-shadow:inset 0 0 0 1px var(--line);}
+    input::placeholder{color:rgba(255,255,255,.35);}
+    input:focus{box-shadow:0 0 0 3px rgba(142,197,255,.2), inset 0 0 0 1px rgba(142,197,255,.55);}
+    button{margin-top:14px;width:100%;padding:12px 14px;border-radius:14px;border:0;background:linear-gradient(135deg, var(--btn), #e6f1ff);color:var(--btnTxt);font-size:16px;cursor:pointer;font-weight:700;transition:transform .15s ease, box-shadow .15s ease;}
+    button:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(120,170,255,.2);}
+    button:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none;}
+    .row{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+    .row.center{justify-content:center;}
+    .clear-link{position:absolute;top:14px;left:14px;font-size:11px;color:rgba(255,255,255,.6);text-decoration:none;}
+    .clear-link:hover{text-decoration:underline;color:#dbe6ff;}
     .link{color:#c9d4ff;text-decoration:none;font-size:13px;}
     .link:hover{text-decoration:underline;}
-    .err{color:#ff6b6b;margin:10px 0 0;font-size:13px;}
-    .ok{color:#7CFFB2;margin:10px 0 0;font-size:13px;}
-    .otpBox{display:none;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);}
-    .fine{margin-top:8px;font-size:12px;color:rgba(255,255,255,.55);}
+    .err{color:#ff8585;margin:10px 0 0;font-size:13px;}
+    .ok{color:#8bffc2;margin:10px 0 0;font-size:13px;}
+    .otpBox{display:none;margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);}
+    .fine{margin-top:10px;font-size:12px;color:rgba(255,255,255,.55);}
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:rgba(142,197,255,.12);color:#cfe4ff;font-size:12px;border:1px solid rgba(142,197,255,.25);}
   </style>
 </head>
 <body>
   <div class="card">
+    <a class="clear-link" href="/__logout">清除状态</a>
     <h1>${escapeHtml(title)}</h1>
     <p>${escapeHtml(subtitle)}</p>
 
     <div id="stage1">
-      <label>密语（中英文都可以）</label>
+      <div class="badge">双重验证 · 安全访问</div>
+      <label>我是？</label>
       <input id="phrase" placeholder="输入密语…" autocomplete="off" />
       <button id="btnStart">解锁并发送验证码</button>
-      <div class="row">
+      <div class="row center">
         <a class="link" href="/__public">仅访问模式（脱敏）</a>
-        <span style="color:rgba(255,255,255,.25)">·</span>
-        <a class="link" href="/__logout">清除状态</a>
       </div>
       <div id="msg1" class=""></div>
-      <div class="fine">提示：如果你不是 xx，也完全可以选择“仅访问模式”。</div>
     </div>
 
     <div class="otpBox" id="stage2">
@@ -232,15 +240,16 @@ function publicSkeletonPage(url) {
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>🫧 仅访问模式（脱敏）</title>
   <style>
-    :root{--bg:#0b0c10;--card:#12141b;--txt:#e9ecf1;--muted:#a7b0c0;--line:rgba(255,255,255,.12);}
-    body{margin:0;min-height:100vh;background:radial-gradient(1200px 600px at 70% 10%, rgba(255,255,255,.08), transparent), var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--txt);}
-    .wrap{width:min(980px,94vw);margin:26px auto 50px;}
-    .top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;}
-    .tag{font-size:12px;color:rgba(255,255,255,.65);border:1px solid var(--line);padding:6px 10px;border-radius:999px;}
+    :root{--bg:#0b0c10;--card:#131622;--txt:#eef1f8;--muted:#9aa3b2;--line:rgba(255,255,255,.12);--accent:#8ec5ff;}
+    *{box-sizing:border-box;}
+    body{margin:0;min-height:100vh;background:radial-gradient(1200px 600px at 70% 10%, rgba(142,197,255,.12), transparent),radial-gradient(900px 500px at 20% 0%, rgba(178,141,255,.12), transparent), var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--txt);}
+    .wrap{width:min(980px,94vw);margin:30px auto 56px;}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
+    .tag{font-size:12px;color:rgba(255,255,255,.7);border:1px solid var(--line);padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.03);}
     a{color:#c9d4ff;text-decoration:none;}
     a:hover{text-decoration:underline;}
-    .hero{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:16px;}
-    h1{margin:0 0 8px;font-size:22px;}
+    .hero{background:linear-gradient(180deg, rgba(255,255,255,.03), transparent),var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 20px 50px rgba(0,0,0,.4);}
+    h1{margin:0 0 8px;font-size:22px;letter-spacing:.3px;}
     p{margin:0;color:var(--muted);line-height:1.7;}
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:12px;}
     .sec{grid-column:span 12;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;}
@@ -250,7 +259,7 @@ function publicSkeletonPage(url) {
     }
     .ph{margin-top:10px;border-radius:14px;border:1px dashed var(--line);background:rgba(255,255,255,.03);padding:12px;color:rgba(255,255,255,.55);font-size:13px;line-height:1.7;}
     .bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
-    .chip{font-size:12px;color:rgba(255,255,255,.7);border:1px solid var(--line);padding:6px 10px;border-radius:999px;}
+    .chip{font-size:12px;color:rgba(255,255,255,.75);border:1px solid var(--line);padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.03);}
     footer{margin-top:18px;color:rgba(255,255,255,.45);font-size:12px;}
   </style>
 </head>
