@@ -1,0 +1,7 @@
+name = "square-darkness-c354"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+kv_namespaces = [
+  { binding = "OTP_KV", id = "fc96eb9d393a4fa4bf2ea0e20b6ef08a" }
+]
