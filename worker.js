@@ -91,7 +91,7 @@ export default {
 // ----------------------- 页面：验证入口 -----------------------
 
 function gatePage(env, { clearPublic = false } = {}) {
-  const title = "🔒 只给 xx 的生日入口";
+  const title = "⭐️ Just for xx";
   const subtitle = "如果你知道密语，就解锁并接收短信验证码。否则也可以进入仅访问模式（不含任何个人信息）。";
 
   const html = `<!doctype html>
@@ -106,7 +106,7 @@ function gatePage(env, { clearPublic = false } = {}) {
     body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(1200px 600px at 18% 12%, rgba(142,197,255,.16), transparent),radial-gradient(900px 600px at 80% 0%, rgba(178,141,255,.16), transparent),var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--txt);}
     .card{width:min(560px,92vw);background:linear-gradient(180deg, rgba(255,255,255,.03), transparent),var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.55);padding:26px 22px;position:relative;overflow:hidden;}
     .card::after{content:"";position:absolute;inset:0;border-radius:20px;border:1px solid rgba(255,255,255,.06);pointer-events:none;}
-    h1{margin:0 0 8px;font-size:22px;letter-spacing:.3px;color:var(--txt);}
+    h1{margin:0 0 8px;font-size:22px;letter-spacing:.3px;color:var(--txt);font-family:"Playfair Display","Times New Roman",serif;}
     p{margin:0 0 16px;line-height:1.7;color:var(--muted);font-size:14px;}
     label{display:block;color:var(--muted);font-size:13px;margin:12px 0 8px;}
     input{width:100%;padding:13px 14px;border-radius:14px;border:1px solid transparent;background:#0e1118;color:var(--txt);font-size:16px;outline:none;box-shadow:inset 0 0 0 1px var(--line);}
@@ -116,33 +116,33 @@ function gatePage(env, { clearPublic = false } = {}) {
     button:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(120,170,255,.2);}
     button:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none;}
     .row{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+    .row.center{justify-content:center;}
+    .clear-link{position:absolute;top:14px;left:14px;font-size:11px;color:rgba(255,255,255,.6);text-decoration:none;}
+    .clear-link:hover{text-decoration:underline;color:#dbe6ff;}
     .link{color:#c9d4ff;text-decoration:none;font-size:13px;}
     .link:hover{text-decoration:underline;}
     .err{color:#ff8585;margin:10px 0 0;font-size:13px;}
     .ok{color:#8bffc2;margin:10px 0 0;font-size:13px;}
     .otpBox{display:none;margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);}
     .fine{margin-top:10px;font-size:12px;color:rgba(255,255,255,.55);}
-    .tip{display:flex;gap:8px;align-items:center;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-top:12px;color:rgba(255,255,255,.7);font-size:12px;}
     .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:rgba(142,197,255,.12);color:#cfe4ff;font-size:12px;border:1px solid rgba(142,197,255,.25);}
   </style>
 </head>
 <body>
   <div class="card">
+    <a class="clear-link" href="/__logout">清除状态</a>
     <h1>${escapeHtml(title)}</h1>
     <p>${escapeHtml(subtitle)}</p>
 
     <div id="stage1">
       <div class="badge">双重验证 · 安全访问</div>
-      <label>密语（中英文都可以）</label>
+      <label>我是？</label>
       <input id="phrase" placeholder="输入密语…" autocomplete="off" />
       <button id="btnStart">解锁并发送验证码</button>
-      <div class="row">
+      <div class="row center">
         <a class="link" href="/__public">仅访问模式（脱敏）</a>
-        <span style="color:rgba(255,255,255,.25)">·</span>
-        <a class="link" href="/__logout">清除状态</a>
       </div>
       <div id="msg1" class=""></div>
-      <div class="tip">提示：如果你不是 xx，也完全可以选择“仅访问模式”。</div>
     </div>
 
     <div class="otpBox" id="stage2">
