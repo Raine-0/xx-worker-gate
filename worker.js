@@ -92,7 +92,7 @@ export default {
 
 function gatePage(env, { clearPublic = false } = {}) {
   const title = "⭐️ Just for xx";
-  const subtitle = "If you know WHO I am，请解锁并接收短信验证码。否则仅能进入仅访问模式。";
+  const subtitle = "If you know WHO I am，enter your answer and receive the verification code via SMS.Otherwise, please click "Access Only".";
 
   const html = `<!doctype html>
 <html lang="zh-CN">
