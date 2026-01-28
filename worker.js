@@ -47,7 +47,7 @@ const DEFAULTS = {
   CODE_LENGTH: 6,
   CODE_TYPE: 1,
   INTERVAL_SECONDS: 60,
-  AUTH_TTL_DAYS: 30,
+  AUTH_TTL_DAYS: 1,
   SID_TTL_SECONDS: 900,
   SMS_COOLDOWN_SECONDS: 60,
 };
@@ -92,7 +92,7 @@ export default {
 
 function gatePage(env, { clearPublic = false } = {}) {
   const title = "⭐️ Just for xx";
-  const subtitle = "如果你知道密语，就解锁并接收短信验证码。否则也可以进入仅访问模式（不含任何个人信息）。";
+  const subtitle = "If you know WHO I am，请解锁并接收短信验证码。否则仅能进入仅访问模式。";
 
   const html = `<!doctype html>
 <html lang="zh-CN">
@@ -135,26 +135,26 @@ function gatePage(env, { clearPublic = false } = {}) {
     <p>${escapeHtml(subtitle)}</p>
 
     <div id="stage1">
-      <div class="badge">双重验证 · 安全访问</div>
+      <div class="badge">ONLY YOU</div>
       <label>我是？</label>
       <input id="phrase" placeholder="输入密语…" autocomplete="off" />
       <button id="btnStart">解锁并发送验证码</button>
       <div class="row center">
-        <a class="link" href="/__public">仅访问模式（脱敏）</a>
+        <a class="link" href="/__public">仅访问</a>
       </div>
       <div id="msg1" class=""></div>
     </div>
 
     <div class="otpBox" id="stage2">
-      <p style="margin:0 0 10px;color:var(--txt)">✅ 密语正确，验证码已发送到预设手机号。</p>
-      <label>短信验证码（4~8 位，通常 6 位）</label>
+      <p style="margin:0 0 10px;color:var(--txt)">✅验证码已发送给xx。</p>
+      <label>短信验证码</label>
       <input id="code" inputmode="numeric" placeholder="例如：123456" maxlength="8" />
       <button id="btnVerify">验证并进入</button>
       <div id="msg2" class=""></div>
       <div class="row">
         <a class="link" href="/__gate">返回密语页</a>
       </div>
-      <div class="fine">如果收不到短信：检查「赠送签名/赠送模板」是否选择正确、是否触发频控/天级流控等。</div>
+      <div class="fine">如果收不到短信，请重试。</div>
     </div>
 
   </div>
